@@ -1,4 +1,4 @@
-#Proyecto autenticación
+# Proyecto autenticación
 
 Este es un proyecto básico en React para el registro y la autenticación de usuarios. 
 
