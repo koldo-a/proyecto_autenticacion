@@ -14,6 +14,29 @@ db = mysql.connector.connect(
     database='fullstack_bottega'
 )
 
+@app.route('/', methods=['GET'])
+def list_users():
+    # Verifica si el usuario ya está registrado
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users ORDER BY idusers")
+
+    # Obtener todos los registros de la tabla users
+    users = cursor.fetchall()
+
+    # Crear una lista para almacenar los resultados
+    users_list = []
+
+    # Iterar sobre los registros y obtener los datos de cada usuario
+    for user in users:
+        user_id = user[0]  # Suponiendo que el id del usuario es el primer campo de la tabla
+        email = user[1]    # Suponiendo que el email del usuario es el segundo campo de la tabla
+
+        # Agregar los datos del usuario a la lista
+        users_list.append({'id': user_id, 'email': email})
+
+    # Devolver la lista de usuarios en formato JSON
+    return jsonify(users_list), 200
+
 # Ruta para el registro de usuarios
 @app.route('/register', methods=['POST'])
 def register():
